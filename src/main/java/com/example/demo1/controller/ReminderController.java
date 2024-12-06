@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("${application.properties.endpoint.root}") //todo
@@ -44,6 +43,7 @@ public class ReminderController {
     public List<Reminder> getRemindersByFilter(String title, String description, LocalDateTime firstRemind, LocalDateTime secondRemind) {
         return reminderService.getReminderByFilter(title, description, firstRemind, secondRemind);
     }
+
 
 
 

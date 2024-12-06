@@ -38,10 +38,10 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
         };
     }
 
-    static Specification<Reminder> betweenDates(LocalDateTime firstDate, LocalDateTime secondDate) {
+    static Specification<Reminder> betweenDates(LocalDateTime firstRemind, LocalDateTime secondRemind) {
         return (reminder, cq, cb) -> {
-            if (firstDate != null && secondDate != null) {
-                return cb.between(reminder.get("date"), firstDate, secondDate);
+            if (firstRemind != null && secondRemind != null) {
+                return cb.between(reminder.get("remind"), firstRemind, secondRemind);
             }
             else {
                 return null;

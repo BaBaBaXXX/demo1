@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: demo1
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+    show-sql: true
+application:
+  properties:
+    endpoint:
+      root: /api/v1
+      reminder: /reminder
+      sort: /sort
+      filtr: /filtr
+      list: /list
+

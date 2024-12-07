@@ -1,6 +1,7 @@
 package com.example.demo1.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,10 +25,11 @@ public class Reminder implements BaseEntity<Integer> {
     @Column(length = 4096)
     private String description;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime remind;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 }

@@ -20,7 +20,7 @@ public interface ReminderService {
 
     public void editReminderById(Long reminderId, Reminder reminder);
 
-    public List<Reminder> getReminderByFilter(String title, String description, LocalDateTime firstRemind, LocalDateTime lastRemind);
+    public List<Reminder> getReminderByFilter(String query, LocalDateTime firstRemind, LocalDateTime lastRemind);
 
 
 

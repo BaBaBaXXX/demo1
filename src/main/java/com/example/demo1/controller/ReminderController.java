@@ -4,6 +4,7 @@ package com.example.demo1.controller;
 import com.example.demo1.entity.Reminder;
 import com.example.demo1.service.ReminderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -40,8 +41,8 @@ public class ReminderController {
     }
 
     @GetMapping("/search")
-    public List<Reminder> getRemindersByFilter(String title, String description, LocalDateTime firstRemind, LocalDateTime secondRemind) {
-        return reminderService.getReminderByFilter(title, description, firstRemind, secondRemind);
+    public List<Reminder> getRemindersByFilter(String query, LocalDateTime firstRemind, LocalDateTime secondRemind) {
+        return reminderService.getReminderByFilter(query, firstRemind, secondRemind);
     }
 
 

@@ -34,7 +34,7 @@ public class ReminderServiceImpl implements ReminderService {
         reminderRepository.save(reminder);
     }
 
-    public List<Reminder> getReminderByFilter(String title, String description, LocalDateTime firstRemind, LocalDateTime lastRemind) {
-        return reminderRepository.findAllWithFilter(title, description, firstRemind, lastRemind);
+    public List<Reminder> getReminderByFilter(String query, LocalDateTime firstRemind, LocalDateTime lastRemind) {
+        return reminderRepository.findAllWithFilter(query, firstRemind, lastRemind);
     }
 }

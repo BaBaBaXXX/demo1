@@ -16,6 +16,7 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
 
 
 
+
     static Specification<Reminder> betweenDates(LocalDateTime firstRemind, LocalDateTime secondRemind) {
         return (reminder, cq, cb) -> {
             if (firstRemind != null && secondRemind != null) {
@@ -26,6 +27,7 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
             }
         };
     }
+
 
 
     //todo lower + toLowerCase ??? чзх????

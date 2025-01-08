@@ -16,29 +16,6 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
 
 
 
-//    static Specification<Reminder> likeTitle(String title) {
-//        return (reminder, cq, cb) -> {
-//            if (title != null) {
-//                return cb.like(reminder.get("title"), "%" + title.toLowerCase() + "%");
-//            }
-//            else {
-//                return null;
-//            }
-//        };
-//    }
-//
-//
-//    static Specification<Reminder> likeDescription(String description) {
-//        return (reminder, cq, cb) -> {
-//            if (description != null) {
-//
-//                return cb.like(reminder.get("description"), "%" + description.toLowerCase() + "%");
-//            }
-//            else {
-//                return null;
-//            }
-//        };
-//    }
 
     static Specification<Reminder> betweenDates(LocalDateTime firstRemind, LocalDateTime secondRemind) {
         return (reminder, cq, cb) -> {
@@ -52,7 +29,7 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
     }
 
 
-    // И восстали машины из пепла ядерного огня... (украл у искусственного интеллекта)
+
     //todo lower + toLowerCase ??? чзх????
     static Specification<Reminder> likeTitleOrDescription(String query) {
         return (reminder, cq, cb) -> {

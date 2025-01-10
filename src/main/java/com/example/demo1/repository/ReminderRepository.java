@@ -2,6 +2,8 @@ package com.example.demo1.repository;
 
 import com.example.demo1.entity.Reminder;
 import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,10 +13,6 @@ import java.util.List;
 
 
 public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSpecificationExecutor<Reminder> {
-
-    List<Reminder> findAllByUserId (Long userId);
-
-
 
 
     static Specification<Reminder> betweenDates(LocalDateTime firstRemind, LocalDateTime secondRemind) {
@@ -47,9 +45,12 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long>, JpaSp
 
 
 
-    default List<Reminder> findAllWithFilter(String query, LocalDateTime firstRemind, LocalDateTime secondRemind) {
+    default Page<Reminder> findAllWithFilter(String query,
+                                             LocalDateTime firstRemind,
+                                             LocalDateTime secondRemind,
+                                             Pageable pageable) {
         return findAll(Specification.where(likeTitleOrDescription(query)).
-                and(betweenDates(firstRemind, secondRemind)));
+                and(betweenDates(firstRemind, secondRemind)), pageable);
     }
 
 

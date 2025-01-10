@@ -17,12 +17,4 @@ spring:
         format_sql: true
 
     show-sql: true
-application:
-  properties:
-    endpoint:
-      root: /api/v1
-      reminder: /reminder
-      sort: /sort
-      filtr: /filtr
-      list: /list
 

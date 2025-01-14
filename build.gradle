@@ -34,8 +34,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta:2.18.2'
 
+    implementation 'io.github.cdimascio:dotenv-java:3.1.0'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

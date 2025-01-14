@@ -36,9 +36,4 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return oAuth2User;
     }
 
-    private User createUser (String email) {
-        User user = new User();
-        user.setEmail(email);
-        return userRepository.save(user);
-    }
 }

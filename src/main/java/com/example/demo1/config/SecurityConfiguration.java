@@ -1,7 +1,6 @@
 package com.example.demo1.config;
 
 import com.example.demo1.service.CustomOAuth2UserService;
-import com.example.demo1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

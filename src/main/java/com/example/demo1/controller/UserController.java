@@ -1,7 +1,6 @@
 package com.example.demo1.controller;
 
 import com.example.demo1.dto.UserEditDto;
-import com.example.demo1.entity.User;
 import com.example.demo1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;

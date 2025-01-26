@@ -16,10 +16,10 @@ public class User implements BaseEntity <Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 64, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 32)
     private String telegram;
+
+    private Long telegramId;
 
 }

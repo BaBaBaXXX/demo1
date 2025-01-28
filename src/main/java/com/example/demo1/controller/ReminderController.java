@@ -1,6 +1,8 @@
 package com.example.demo1.controller;
 
 
+import com.example.demo1.dto.ReminderEditDto;
+import com.example.demo1.dto.RequestReminderDto;
 import com.example.demo1.entity.Reminder;
 import com.example.demo1.service.ReminderService;
 import lombok.RequiredArgsConstructor;
@@ -8,24 +10,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/api/v1") //todo
+@RequestMapping("/api/v1/reminders")
 @RequiredArgsConstructor
 public class ReminderController {
 
     private final ReminderService reminderService;
 
-
-
-
     @PostMapping
-    public String saveReminder(Reminder reminder) {
+    public ResponseEntity<String> saveReminder(@RequestBody Reminder reminder) {
         reminderService.createReminder(reminder);
-        return "Reminder created successfully";
+        return ResponseEntity.status(CREATED).body("Reminder created");
     }
 
     @DeleteMapping("/{reminderId}")
@@ -34,15 +35,15 @@ public class ReminderController {
     }
 
     @PutMapping("/{reminderId}")
-    public String editReminder(@PathVariable Long reminderId, Reminder reminder) {
-        reminderService.editReminderById(reminderId, reminder);
-        return "Reminder updated successfully";
+    public ResponseEntity<String> editReminder(ReminderEditDto reminder, @PathVariable Long reminderId) {
+        reminderService.editReminder(reminder, reminderId);
+        return ResponseEntity.ok().body("Reminder updated");
     }
 
-    @GetMapping("/reminders")
-    public Page<Reminder> getRemindersByFilter(String query, LocalDateTime firstRemind, LocalDateTime secondRemind,
+    @GetMapping
+    public Page<Reminder> getRemindersByFilter(RequestReminderDto requestReminderDto,
                                                @PageableDefault(sort = {"remind", "title"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        return reminderService.getReminderByFilter(query, firstRemind, secondRemind, pageable);
+        return reminderService.getReminderByFilter(requestReminderDto, pageable);
     }
 
 

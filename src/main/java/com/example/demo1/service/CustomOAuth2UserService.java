@@ -19,19 +19,20 @@ import java.util.Optional;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UserRepository userRepository;
-    private final UserService userService;
-
+    private final String EMAIL = "email";
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
 
-        String email = oAuth2User.getAttribute("email");
+        String email = oAuth2User.getAttribute(EMAIL);
 
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isEmpty()) {
-            userService.createUser(email);
+            User userEntity = new User();
+            userEntity.setEmail(email);
+            userRepository.save(userEntity);
         }
         return oAuth2User;
     }

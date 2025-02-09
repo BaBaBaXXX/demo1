@@ -2,18 +2,15 @@ package com.example.demo1.job.telegram;
 
 
 import com.example.demo1.entity.User;
-import com.example.demo1.repository.UserRepository;
+import com.example.demo1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +26,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final String SUCCESS = "Теперь ваш телеграм аккаунт подключён к уведомлениям!";
     private final String FAIL = "Ваш телеграм аккаунт не привязан к приложению";
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -59,23 +56,15 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
 
-    //Нормально ставить Transactional тут, или всю логику с юзерами и подобным уводить в UserService?
-    @Transactional
     protected void startBot(long chatId, String userName) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        Optional<User> user = userRepository.findByTelegram(userName);
-        if (user.isPresent()) {
-            User actualUser = user.get();
-            if (actualUser.getTelegramId() != chatId) {
-                actualUser.setTelegramId(chatId);
-                userRepository.save(actualUser);
-            }
+        User user = userService.returnUserByTelegram(userName, chatId);
+        if (user != null) {
             message.setText(SUCCESS);
         } else {
             message.setText(FAIL);
         }
-
         try {
             execute(message);
         } catch (TelegramApiException e){

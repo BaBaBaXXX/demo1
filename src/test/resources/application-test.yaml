@@ -1,0 +1,7 @@
+user:
+  telegram: ${TEST_TELEGRAM_USER}
+  email: ${TEST_EMAIL_USER}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://database-reminder:5432/demoTest

@@ -20,6 +20,7 @@ public class Reminder implements BaseEntity<Long> {
 
     private String title;
 
+    @Column(length = 4096)
     private String description;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

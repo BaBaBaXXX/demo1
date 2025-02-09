@@ -4,10 +4,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/002_CreateReminderTable.sql
   - include:
-      file: db/changelog/changeset/003_InsertTestUsers.sql
-  - include:
-      file: db/changelog/changeset/004_InsertTestReminders.sql
-  - include:
       file: db/changelog/changeset/005_InitQuartz.xml
   - include:
       file: db/changelog/changeset/006_AddTelegramId.sql

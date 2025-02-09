@@ -38,5 +38,4 @@ public class EmailJob extends QuartzJobBean {
         message.setText(body);
         mailSender.send(message);
     }
-
 }

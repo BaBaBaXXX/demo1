@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  reminder:
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "7000:8080"
+    depends_on:
+      - database-reminder
+    networks:
+      - reminder-network
+
+  database-reminder:
+    image: "postgres:15-bullseye"
+    environment:
+      POSTGRES_USER: ${DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
+      POSTGRES_DB: reminder
+    ports:
+      - "6000:5432"
+    volumes:
+      - database-reminder:/var/lib/postgresql/data
+    networks:
+      - reminder-network
+volumes:
+  database-reminder:
+
+networks:
+  reminder-network:
+    driver: bridge

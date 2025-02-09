@@ -34,7 +34,6 @@ public class CreateJob {
     private final TelegramSenderService telegramSenderService;
     private final ReminderMapper reminderMapper;
 
-    //Меня напрягает, что он сработает и при рефреше контекста, но я не знаю в каких случаях он рефрешится T_T
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         jobListCreator();

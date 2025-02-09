@@ -32,12 +32,15 @@ public class ReminderService {
     private final TelegramSenderService telegramSenderService;
     private final ReminderMapper reminderMapper;
 
-    public void createReminder(Reminder reminder) {
-        reminderRepository.save(reminder);
+    private final String EMAIL_ATTRIBUTE = "email";
 
-        JobReminderDto jobReminderDto = reminderMapper.toJobReminderDto(reminder);
+    public Reminder createReminder(Reminder reminder) {
+        Reminder createdReminder = reminderRepository.save(reminder);
+        JobReminderDto jobReminderDto = reminderMapper.toJobReminderDto(createdReminder);
         emailSenderService.scheduleEmail(MailType.REMINDER, jobReminderDto);
         telegramSenderService.scheduleReminderTelegram(jobReminderDto);
+
+        return createdReminder;
     }
 
     public void deleteReminderById(Long reminderId) {
@@ -49,9 +52,15 @@ public class ReminderService {
     public void editReminder(ReminderEditDto reminder, Long reminderId) {
         Optional<Reminder> oldReminder = reminderRepository.findById(reminderId);
         oldReminder.ifPresent(editReminder -> {
-            editReminder.setTitle(reminder.title());
-            editReminder.setDescription(reminder.description());
-            editReminder.setRemind(reminder.remind());
+            if (reminder.title() != null) {
+                editReminder.setTitle(reminder.title());
+            }
+            if (reminder.description() != null) {
+                editReminder.setDescription(reminder.description());
+            }
+            if (reminder.remind() != null) {
+                editReminder.setRemind(reminder.remind());
+            }
             reminderRepository.save(editReminder);
         });
     }
@@ -61,7 +70,7 @@ public class ReminderService {
                                               Pageable pageable) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         DefaultOAuth2User oAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
-        String email = oAuth2User.getAttribute("email");
+        String email = oAuth2User.getAttribute(EMAIL_ATTRIBUTE);
         User user = userRepository.findByEmail(email).get();
 
 

@@ -24,14 +24,14 @@ public class ReminderController {
     private final ReminderService reminderService;
 
     @PostMapping
-    public ResponseEntity<String> saveReminder(@RequestBody Reminder reminder) {
-        reminderService.createReminder(reminder);
-        return ResponseEntity.status(CREATED).body("Reminder created");
+    public ResponseEntity<Reminder> saveReminder(@RequestBody Reminder reminder) {
+        return ResponseEntity.status(CREATED).body(reminderService.createReminder(reminder));
     }
 
     @DeleteMapping("/{reminderId}")
-    public void deleteReminder(@PathVariable Long reminderId) {
+    public ResponseEntity<String> deleteReminder(@PathVariable Long reminderId) {
         reminderService.deleteReminderById(reminderId);
+        return ResponseEntity.ok().body("Reminder deleted");
     }
 
     @PutMapping("/{reminderId}")
@@ -45,8 +45,4 @@ public class ReminderController {
                                                @PageableDefault(sort = {"remind", "title"}, direction = Sort.Direction.ASC) Pageable pageable) {
         return reminderService.getReminderByFilter(requestReminderDto, pageable);
     }
-
-
-
-
 }

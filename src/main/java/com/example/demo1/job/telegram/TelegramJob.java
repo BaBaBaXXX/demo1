@@ -33,6 +33,7 @@ public class TelegramJob extends QuartzJobBean {
 
         try {
             bot.execute(sendMessage);
+            log.info("Message sent successfully: {}", toUser);
         } catch (TelegramApiException e) {
             log.error("Failed to send message: {}", e.getMessage());
         }

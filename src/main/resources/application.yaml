@@ -5,7 +5,7 @@ spring:
     name: demo1
 
   datasource:
-    url: ${DATASOURCE_URL}
+    url: jdbc:postgresql://database-reminder:5432/postgres
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -44,6 +44,9 @@ spring:
           auth: true
           starttls:
             enable: true
+  docker:
+    compose:
+      enabled: false #+седые волосы +психдиспансер -вайб
 
   liquibase:
     enabled: true
@@ -54,24 +57,7 @@ spring:
     jdbc:
       initialize-schema: never
     properties.org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
-#      org:
-#        quartz:
-#          scheduler:
-#            instanceName: QuartzScheduler
-#            instanceId: AUTO
-#          jobStore:
-#            class: org.quartz.impl.jdbcjobstore.JobStoreTX
-#            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
-#            dataSource: quartzDataSource
-#            tablePrefix: QRTZ_
-#          threadPool:
-#            threadCount: 10
-#          datasource:
-#            quartzDataSource:
-#              driver: org.postgresql.Driver
-#              URL: ${DATASOURCE_URL}
-#              user: ${DATASOURCE_USERNAME}
-#              password: ${DATASOURCE_PASSWORD}
+
 telegram:
   bot:
     name: ${TELEGRAM_BOT_NAME}
